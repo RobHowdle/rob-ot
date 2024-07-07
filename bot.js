@@ -14,9 +14,26 @@ client.once("ready", () => {
 	setInterval(postRandomMessage, 3600000); // Post every hour
 });
 
+client.on("error", console.error);
+
 const messages = [
-	"Hello! I'm a cunt",
-	"If you are reading this then you are a cunt",
-	"I am surrounded by cunts and not the kind I would like...",
-	"I hope you are having a great day... cunt.",
+	"Hello there!",
+	"How's everyone doing?",
+	"Don't forget to take a break!",
+	"Stay positive!",
+	"Keep up the good work!",
+	"What's up, everyone?",
 ];
+
+function postRandomMessage() {
+	const channel = client.channels.cache.get(process.env.CHANNEL_ID);
+	if (channel) {
+		const randomMessage =
+			messages[Math.floor(Math.random() * messages.length)];
+		channel.send(randomMessage);
+	} else {
+		console.log("Channel not found");
+	}
+}
+
+client.login(process.env.BOT_TOKEN).catch(console.error);
